@@ -22,9 +22,9 @@ def show_menu():
     """
     Display the list of operations available to the user.
     """
-    task_dict = tasks.tasks
+    task_dict = tasks.descriptions
     for key in task_dict:
-        print(f'{key}. {tasks.descriptions[key]}')
+        print(f'{key}. {task_dict[key]}')
     print()
 
 
