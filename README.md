@@ -1,5 +1,5 @@
 # Employee Management
-#### Class assignment to handle CSV reads, writes, and updates.
+#### A homework assignment to handle CSV file reads, writes, and updates.
 ![GitHub](https://img.shields.io/github/license/lamergameryt/employee-management)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/lamergameryt/employee-management)
 ![GitHub followers](https://img.shields.io/github/followers/lamergameryt?style=social) [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
