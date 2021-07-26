@@ -84,8 +84,14 @@ def update_employees_task(manager: CSVManager):
     """
     Updates all employees who should be given a raise.
     """
-    manager.update_employees()
-    print('The employees who met the raise quota were given a raise.')
+    updated_employees = manager.update_employees()
+    if not updated_employees:
+        print('No employees were updated in the CSV File.')
+    else:
+        updated_employees = [[str(employee.employee_id), employee.name] for employee in updated_employees]
+        print('The employees who met the raise quota were given a raise.')
+        for employee in updated_employees:
+            print('Updated employee :', employee[0], '-', employee[1])
 
 
 @task(task_id=4, task_description="Delete employees based on their sales.")
@@ -93,8 +99,14 @@ def delete_employees_task(manager: CSVManager):
     """
     Deletes employees who do not match the minimum quota from the CSV records.
     """
-    manager.delete_employees()
-    print('The employees who did not meet the minimum quota were deleted.')
+    deleted_employees = manager.delete_employees()
+    if not deleted_employees:
+        print('No employees were deleted from the CSV File.')
+    else:
+        deleted_employees = [[str(employee.employee_id), employee.name] for employee in deleted_employees]
+        print('The employees who did not meet the minimum quota were deleted.')
+        for employee in deleted_employees:
+            print('Deleted employee :', employee[0], '-', employee[1])
 
 
 @task(task_id=5, task_description="Search for a specific employee with their employee id.")

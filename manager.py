@@ -75,11 +75,14 @@ class CSVManager:
 
         return None  # Ideally this return shouldn't be reached
 
-    def update_employees(self):
+    def update_employees(self) -> list[Employee]:
         """
         Provides a five percent to all employees who meet the raise quota.
+
+        :return: The list of employees updated.
         """
         temp_file_name = tempfile.mktemp()
+        updated_employees = list()
         with open(self.file_name, 'r') as file, open(temp_file_name, 'w') as temp_file:
             reader = csv.DictReader(file, fieldnames=fields)
             writer = csv.DictWriter(temp_file, fieldnames=fields)
@@ -88,17 +91,22 @@ class CSVManager:
                     employee = Employee.from_dict(row)
                     if employee.meets_raise_quota():
                         employee.salary *= 105 / 100
+                        updated_employees.append(employee)
                     writer.writerow(employee.to_dict())
                 except Exception:
                     writer.writerow(row)
 
         shutil.move(temp_file.name, self.file_name)
+        return updated_employees
 
-    def delete_employees(self):
+    def delete_employees(self) -> list[Employee]:
         """
-        Deletes all employees who do not meet the fire quota.
+        Deletes all employees who do not meet the minimum quota.
+
+        :return: A list of employees who were deleted.
         """
         temp_file_name = tempfile.mktemp()
+        deleted_employees = list()
         with open(self.file_name, 'r') as file, open(temp_file_name, 'w') as temp_file:
             reader = csv.DictReader(file, fieldnames=fields)
             writer = csv.DictWriter(temp_file, fieldnames=fields)
@@ -106,12 +114,14 @@ class CSVManager:
                 try:
                     employee = Employee.from_dict(row)
                     if not employee.meets_fire_quota():
+                        deleted_employees.append(employee)
                         continue
                     writer.writerow(employee.to_dict())
                 except Exception:
                     writer.writerow(row)
 
         shutil.move(temp_file.name, self.file_name)
+        return deleted_employees
 
     def employee_exists(self, employee_id: int) -> bool:
         """
