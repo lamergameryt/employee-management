@@ -19,7 +19,7 @@ class CSVManager:
         if not self.file_exists():
             if create_file:
                 with open(file_name, 'w') as file:
-                    writer = csv.DictWriter(file, fieldnames=fields)
+                    writer = csv.DictWriter(file, fieldnames=fields.keys())
                     writer.writeheader()
             else:
                 raise FileNotFoundError(f"The file {file_name} was not found.")
@@ -37,7 +37,7 @@ class CSVManager:
             raise DuplicateEmployeeError(employee.employee_id)
 
         with open(self.file_name, 'a') as file:
-            writer = csv.DictWriter(file, fieldnames=fields)
+            writer = csv.DictWriter(file, fieldnames=fields.keys())
             writer.writerow(employee.to_dict())
 
     def get_all_employees(self) -> list[Employee]:
@@ -48,7 +48,7 @@ class CSVManager:
         """
         employees = list()
         with open(self.file_name, 'r') as file:
-            reader = csv.DictReader(file, fieldnames=fields)
+            reader = csv.DictReader(file, fieldnames=fields.keys())
             next(reader)
             for row in reader:
                 employees.append(Employee.from_dict(row))
@@ -66,7 +66,7 @@ class CSVManager:
             return None
 
         with open(self.file_name, 'r') as file:
-            reader = csv.DictReader(file, fieldnames=fields)
+            reader = csv.DictReader(file, fieldnames=fields.keys())
             next(reader)
             for row in reader:
                 employee = Employee.from_dict(row)
@@ -84,8 +84,8 @@ class CSVManager:
         temp_file_name = tempfile.mktemp()
         updated_employees = list()
         with open(self.file_name, 'r') as file, open(temp_file_name, 'w') as temp_file:
-            reader = csv.DictReader(file, fieldnames=fields)
-            writer = csv.DictWriter(temp_file, fieldnames=fields)
+            reader = csv.DictReader(file, fieldnames=fields.keys())
+            writer = csv.DictWriter(temp_file, fieldnames=fields.keys())
             for row in reader:
                 try:
                     employee = Employee.from_dict(row)
@@ -108,8 +108,8 @@ class CSVManager:
         temp_file_name = tempfile.mktemp()
         deleted_employees = list()
         with open(self.file_name, 'r') as file, open(temp_file_name, 'w') as temp_file:
-            reader = csv.DictReader(file, fieldnames=fields)
-            writer = csv.DictWriter(temp_file, fieldnames=fields)
+            reader = csv.DictReader(file, fieldnames=fields.keys())
+            writer = csv.DictWriter(temp_file, fieldnames=fields.keys())
             for row in reader:
                 try:
                     employee = Employee.from_dict(row)
@@ -132,7 +132,7 @@ class CSVManager:
         """
         found = False
         with open(self.file_name, 'r') as file:
-            reader = csv.DictReader(file, fieldnames=fields)
+            reader = csv.DictReader(file, fieldnames=fields.keys())
             next(reader)
             for row in reader:
                 try:

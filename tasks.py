@@ -24,8 +24,8 @@ def ask_employee_details():
     Fetch the details of an Employee object from the user.
     """
     employee_dict = dict()
-    for field in fields:
-        employee_dict[field] = input(f'Enter the {field}: ')
+    for key, value in fields.items():
+        employee_dict[key] = input(f'Enter the {value}: ')
 
     return employee_dict
 
@@ -77,7 +77,6 @@ def print_employees_task(manager: CSVManager):
     employees = manager.get_all_employees()
     for employee in employees:
         print(employee)
-        print()
 
 
 @task(task_id=3, task_description="Update all employees based on their sales.")
