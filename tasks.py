@@ -63,7 +63,7 @@ def write_employee_task(manager: CSVManager):
     """
     Inserts an employee into the CSV records.
     """
-    manager: manager.write_employee(ask_employee_details())
+    manager.write_employee(ask_employee_details())
     print('The employee data was written in our records.')
 
 
@@ -84,7 +84,7 @@ def update_employees_task(manager: CSVManager):
     """
     Updates all employees who should be given a raise.
     """
-    manager: manager.update_employees()
+    manager.update_employees()
     print('The employees who met the raise quota were given a raise.')
 
 
@@ -93,7 +93,7 @@ def delete_employees_task(manager: CSVManager):
     """
     Deletes employees who do not match the minimum quota from the CSV records.
     """
-    manager: manager.delete_employees()
+    manager.delete_employees()
     print('The employees who did not meet the minimum quota were deleted.')
 
 
