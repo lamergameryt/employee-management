@@ -2,6 +2,7 @@ import sys
 from typing import Optional
 from emp_management.manager import CSVManager
 from employee import fields, Employee
+from sample_data import sample_employees
 
 # The dictionaries to store the tasks and their descriptions.
 tasks = dict()
@@ -137,13 +138,9 @@ def exit_task(manager: CSVManager):
 
 @task(task_id=7, task_description="Inserts sample data into the CSV File.")
 def sample_data_task(manager: CSVManager):
-    emp = Employee.from_dict({
-        "employee_id": 153,
-        "name": "John Marston",
-        "department": "Game Development",
-        "designation": "Developer",
-        "salary": 80000,
-        "sales": 7500000
-    })
-    manager.write_employee(emp)
-    print(f'A sample employee with the same {emp.name} was inserted in to the CSV File.')
+    for employee in sample_employees:
+        emp = Employee.from_dict(employee)
+        manager.write_employee(emp)
+        print(f'A sample employee with the name {emp.name} was inserted in to the CSV File.')
+
+    print('\nInserted all sample employees!')

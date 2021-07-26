@@ -77,9 +77,10 @@ class Employee:
         return {field: self.__getattribute__(field) for field in fields}
 
     def __str__(self):
-        return f'Employee ID: {self.employee_id}\n' \
-               f'Employee Name: {self.name}\n' \
-               f'Department: {self.department}\n' \
-               f'Designation: {self.designation}\n' \
-               f'Salary: {self.get_formatted_salary()}\n' \
-               f'Sales: {self.get_formatted_sales()} sales'
+        space_seperator = 15
+        return f'{"Employee ID":{space_seperator}}: {self.employee_id}\n' \
+               f'{"Employee Name":{space_seperator}}: {self.name}\n' \
+               f'{"Department":{space_seperator}}: {self.department}\n' \
+               f'{"Designation":{space_seperator}}: {self.designation}\n' \
+               f'{"Salary":{space_seperator}}: {self.get_formatted_salary()}\n' \
+               f'{"Sales":{space_seperator}}: {self.get_formatted_sales()} sales'
