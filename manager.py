@@ -81,9 +81,9 @@ class CSVManager:
 
         :return: The list of employees updated.
         """
-        temp_file_name = tempfile.mktemp()
+        fd, path = tempfile.mkstemp()
         updated_employees = list()
-        with open(self.file_name, 'r') as file, open(temp_file_name, 'w') as temp_file:
+        with open(self.file_name, 'r') as file, open(path, 'w') as temp_file:
             reader = csv.DictReader(file, fieldnames=fields.keys())
             writer = csv.DictWriter(temp_file, fieldnames=fields.keys())
             for row in reader:
@@ -97,6 +97,7 @@ class CSVManager:
                     writer.writerow(row)
 
         shutil.move(temp_file.name, self.file_name)
+        os.close(fd)
         return updated_employees
 
     def delete_employees(self) -> list[Employee]:
@@ -105,9 +106,9 @@ class CSVManager:
 
         :return: A list of employees who were deleted.
         """
-        temp_file_name = tempfile.mktemp()
+        fd, path = tempfile.mkstemp()
         deleted_employees = list()
-        with open(self.file_name, 'r') as file, open(temp_file_name, 'w') as temp_file:
+        with open(self.file_name, 'r') as file, open(path, 'w') as temp_file:
             reader = csv.DictReader(file, fieldnames=fields.keys())
             writer = csv.DictWriter(temp_file, fieldnames=fields.keys())
             for row in reader:
@@ -121,6 +122,7 @@ class CSVManager:
                     writer.writerow(row)
 
         shutil.move(temp_file.name, self.file_name)
+        os.close(fd)
         return deleted_employees
 
     def employee_exists(self, employee_id: int) -> bool:
