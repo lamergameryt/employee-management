@@ -96,8 +96,8 @@ class CSVManager:
                 except Exception:
                     writer.writerow(row)
 
-        shutil.move(temp_file.name, self.file_name)
         os.close(fd)
+        shutil.move(temp_file.name, self.file_name)
         return updated_employees
 
     def delete_employees(self) -> list[Employee]:
@@ -121,8 +121,8 @@ class CSVManager:
                 except Exception:
                     writer.writerow(row)
 
-        shutil.move(temp_file.name, self.file_name)
         os.close(fd)
+        shutil.move(temp_file.name, self.file_name)
         return deleted_employees
 
     def employee_exists(self, employee_id: int) -> bool:
