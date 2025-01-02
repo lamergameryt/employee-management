@@ -2,7 +2,8 @@ import csv
 import os
 import shutil
 import tempfile
-from typing import Union, Optional
+from typing import Optional, Union
+
 from employee import Employee, fields
 from exceptions import DuplicateEmployeeError
 
@@ -18,7 +19,7 @@ class CSVManager:
         self.file_name = file_name
         if not self.file_exists():
             if create_file:
-                with open(file_name, 'w') as file:
+                with open(file_name, "w") as file:
                     writer = csv.DictWriter(file, fieldnames=fields.keys())
                     writer.writeheader()
             else:
@@ -36,7 +37,7 @@ class CSVManager:
         if self.employee_exists(employee.employee_id):
             raise DuplicateEmployeeError(employee.employee_id)
 
-        with open(self.file_name, 'a') as file:
+        with open(self.file_name, "a") as file:
             writer = csv.DictWriter(file, fieldnames=fields.keys())
             writer.writerow(employee.to_dict())
 
@@ -47,7 +48,7 @@ class CSVManager:
         :return: A list of employees.
         """
         employees = list()
-        with open(self.file_name, 'r') as file:
+        with open(self.file_name, "r") as file:
             reader = csv.DictReader(file, fieldnames=fields.keys())
             next(reader)
             for row in reader:
@@ -65,7 +66,7 @@ class CSVManager:
         if not self.employee_exists(employee_id):
             return None
 
-        with open(self.file_name, 'r') as file:
+        with open(self.file_name, "r") as file:
             reader = csv.DictReader(file, fieldnames=fields.keys())
             next(reader)
             for row in reader:
@@ -83,7 +84,7 @@ class CSVManager:
         """
         fd, path = tempfile.mkstemp()
         updated_employees = list()
-        with open(self.file_name, 'r') as file, open(path, 'w') as temp_file:
+        with open(self.file_name, "r") as file, open(path, "w") as temp_file:
             reader = csv.DictReader(file, fieldnames=fields.keys())
             writer = csv.DictWriter(temp_file, fieldnames=fields.keys())
             for row in reader:
@@ -108,7 +109,7 @@ class CSVManager:
         """
         fd, path = tempfile.mkstemp()
         deleted_employees = list()
-        with open(self.file_name, 'r') as file, open(path, 'w') as temp_file:
+        with open(self.file_name, "r") as file, open(path, "w") as temp_file:
             reader = csv.DictReader(file, fieldnames=fields.keys())
             writer = csv.DictWriter(temp_file, fieldnames=fields.keys())
             for row in reader:
@@ -133,7 +134,7 @@ class CSVManager:
         :return: Boolean specifying whether the employee exists.
         """
         found = False
-        with open(self.file_name, 'r') as file:
+        with open(self.file_name, "r") as file:
             reader = csv.DictReader(file, fieldnames=fields.keys())
             next(reader)
             for row in reader:

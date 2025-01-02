@@ -5,7 +5,7 @@ sample_employees = [
         "department": "Game Development",
         "designation": "Developer",
         "salary": 80000,
-        "sales": 750000
+        "sales": 750000,
     },
     {
         "employee_id": 293,
@@ -13,7 +13,7 @@ sample_employees = [
         "department": "Lead Protagonist",
         "designation": "Acting",
         "salary": 105000,
-        "sales": 550000
+        "sales": 550000,
     },
     {
         "employee_id": 904,
@@ -21,7 +21,7 @@ sample_employees = [
         "department": "Spiritual Mythology",
         "designation": "Fantasy",
         "salary": 15000,
-        "sales": 64000
+        "sales": 64000,
     },
     {
         "employee_id": 869,
@@ -29,7 +29,7 @@ sample_employees = [
         "department": "Lead Protagonist",
         "designation": "Fantasy",
         "salary": 185000,
-        "sales": 950000
+        "sales": 950000,
     },
     {
         "employee_id": 1083,
@@ -37,6 +37,6 @@ sample_employees = [
         "department": "Fictional Sorceress",
         "designation": "Witcher III",
         "salary": 55000,
-        "sales": 343000
-    }
+        "sales": 343000,
+    },
 ]

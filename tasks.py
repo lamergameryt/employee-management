@@ -1,7 +1,9 @@
 import sys
 from typing import Optional
+
 from emp_management.manager import CSVManager
-from employee import fields, Employee
+
+from employee import Employee, fields
 from sample_data import sample_employees
 
 # The dictionaries to store the tasks and their descriptions.
@@ -14,7 +16,7 @@ def ask_employee_id() -> Optional[int]:
     Fetch the Employee ID from the user.
     """
     try:
-        return int(input('Enter the Employee ID: '))
+        return int(input("Enter the Employee ID: "))
     except Exception:
         return None
 
@@ -25,7 +27,7 @@ def ask_employee_details():
     """
     employee_dict = dict()
     for key, value in fields.items():
-        employee_dict[key] = input(f'Enter the {value}: ')
+        employee_dict[key] = input(f"Enter the {value}: ")
 
     return employee_dict
 
@@ -56,7 +58,7 @@ def execute_task(task_id: int, manager: CSVManager):
     if task_id in tasks:
         tasks[task_id](manager)
     else:
-        print('Please make sure you enter a valid choice.')
+        print("Please make sure you enter a valid choice.")
 
 
 @task(task_id=1, task_description="Write an employee to the CSV File.")
@@ -65,15 +67,18 @@ def write_employee_task(manager: CSVManager):
     Inserts an employee into the CSV records.
     """
     manager.write_employee(ask_employee_details())
-    print('The employee data was written in our records.')
+    print("The employee data was written in our records.")
 
 
-@task(task_id=2, task_description="Read all the employees present in the CSV File.")
+@task(
+    task_id=2,
+    task_description="Read all the employees present in the CSV File.",
+)
 def print_employees_task(manager: CSVManager):
     """
     Prints all the employees present in the CSV records.
     """
-    print('\nDisplaying all employees :\n')
+    print("\nDisplaying all employees :\n")
     employees = manager.get_all_employees()
     for employee in employees:
         print(employee)
@@ -86,12 +91,15 @@ def update_employees_task(manager: CSVManager):
     """
     updated_employees = manager.update_employees()
     if not updated_employees:
-        print('No employees were updated in the CSV File.')
+        print("No employees were updated in the CSV File.")
     else:
-        updated_employees = [[str(employee.employee_id), employee.name] for employee in updated_employees]
-        print('The employees who met the raise quota were given a raise.')
+        updated_employees = [
+            [str(employee.employee_id), employee.name]
+            for employee in updated_employees
+        ]
+        print("The employees who met the raise quota were given a raise.")
         for employee in updated_employees:
-            print('Updated employee :', employee[0], '-', employee[1])
+            print("Updated employee :", employee[0], "-", employee[1])
 
 
 @task(task_id=4, task_description="Delete employees based on their sales.")
@@ -101,22 +109,28 @@ def delete_employees_task(manager: CSVManager):
     """
     deleted_employees = manager.delete_employees()
     if not deleted_employees:
-        print('No employees were deleted from the CSV File.')
+        print("No employees were deleted from the CSV File.")
     else:
-        deleted_employees = [[str(employee.employee_id), employee.name] for employee in deleted_employees]
-        print('The employees who did not meet the minimum quota were deleted.')
+        deleted_employees = [
+            [str(employee.employee_id), employee.name]
+            for employee in deleted_employees
+        ]
+        print("The employees who did not meet the minimum quota were deleted.")
         for employee in deleted_employees:
-            print('Deleted employee :', employee[0], '-', employee[1])
+            print("Deleted employee :", employee[0], "-", employee[1])
 
 
-@task(task_id=5, task_description="Search for a specific employee with their employee id.")
+@task(
+    task_id=5,
+    task_description="Search for a specific employee with their employee id.",
+)
 def search_employee_task(manager: CSVManager):
     """
     Search for an employee with a Particular ID and output it to the console.
     """
     employee_id = ask_employee_id()
     if employee_id is None:
-        print('Please make sure you enter a valid Employee ID.')
+        print("Please make sure you enter a valid Employee ID.")
     else:
         employee = manager.get_employee(employee_id)
         if employee:
@@ -131,7 +145,7 @@ def exit_task(manager: CSVManager):
     """
     Exits from the program.
     """
-    print('\nThanks for using the program!')
+    print("\nThanks for using the program!")
     sys.exit(0)
 
 
@@ -140,6 +154,8 @@ def sample_data_task(manager: CSVManager):
     for employee in sample_employees:
         emp = Employee.from_dict(employee)
         manager.write_employee(emp)
-        print(f'A sample employee with the name {emp.name} was inserted in to the CSV File.')
+        print(
+            f"A sample employee with the name {emp.name} was inserted in to the CSV File."
+        )
 
-    print('\nInserted all sample employees!')
+    print("\nInserted all sample employees!")

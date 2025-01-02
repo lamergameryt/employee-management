@@ -1,7 +1,7 @@
 import tasks
 from manager import CSVManager
 
-manager = CSVManager('employee_data.csv', create_file=True)
+manager = CSVManager("employee_data.csv", create_file=True)
 
 
 def show_greeting():
@@ -24,16 +24,16 @@ def show_menu():
     """
     task_dict = tasks.descriptions
     for key in task_dict:
-        print(f'{key}. {task_dict[key]}')
+        print(f"{key}. {task_dict[key]}")
     print()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     show_greeting()
     while True:
         show_menu()
-        choice = int(input('Enter your choice: '))
+        choice = int(input("Enter your choice: "))
 
         print()
         tasks.execute_task(choice, manager)
-        print('\n--------------\n')
+        print("\n--------------\n")
